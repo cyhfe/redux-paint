@@ -16,7 +16,7 @@ export type Action =
       type: typeof END_STROKE;
     };
 
-export const startStroke = (x: number, y: number) => {
+export const beginStroke = (x: number, y: number) => {
   return {
     type: BEGIN_STROKE,
     payload: {
@@ -32,7 +32,7 @@ export const endStroke = () => {
   };
 };
 
-export const uodateStroke = (x: number, y: number) => {
+export const updateStroke = (x: number, y: number) => {
   return {
     type: UPDATE_STROKE,
     payload: {

@@ -16,11 +16,31 @@ export const rootReducer = (
 ) => {
   switch (action.type) {
     case BEGIN_STROKE:
-      return state;
-    case END_STROKE:
-      return state;
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [action.payload],
+        },
+      };
     case UPDATE_STROKE:
-      return state;
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [...state.currentStroke.points, action.payload],
+        },
+      };
+    case END_STROKE:
+      if (!state.currentStroke.points.length) return state;
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          points: [],
+        },
+        strokes: [...state.strokes, state.currentStroke],
+      };
     default:
       return state;
   }
