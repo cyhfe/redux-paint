@@ -1,0 +1,6 @@
+@import '~normalize.css';
+@import '~xp.css/dist/XP.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}

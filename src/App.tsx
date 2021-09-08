@@ -1,11 +1,19 @@
-import React from 'react';
-import './App.css';
+import React, { useRef } from "react";
+import "./App.css";
 
 function App() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const startDrawing = () => {};
+  const endDrawing = () => {};
+  const draw = () => {};
   return (
-    <div className="App">
-      app
-    </div>
+    <canvas
+      onMouseDown={startDrawing}
+      onMouseUp={endDrawing}
+      onMouseOut={endDrawing}
+      onMouseOver={draw}
+      ref={canvasRef}
+    />
   );
 }
 
