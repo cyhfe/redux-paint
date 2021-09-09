@@ -2,9 +2,9 @@ import "./colorPanel.css";
 import { useState } from "react";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
-import { setColor } from "../actions";
+import { setColor } from "../../actions";
 import { useDrag } from "react-dnd";
-import { ItemTypes } from "../ItemTypes";
+import { ItemTypes } from "../../ItemTypes";
 
 const COLORS = [
   "#000",
