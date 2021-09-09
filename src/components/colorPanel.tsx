@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setColor } from "../actions";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../ItemTypes";
+
 const COLORS = [
   "#000",
   "#264653",
@@ -14,7 +15,12 @@ const COLORS = [
   "#e76f51",
   "#fff",
 ];
-export default function ColorPanel() {
+
+type Props = {
+  left: number;
+  top: number;
+};
+export default function ColorPanel({ left, top }: Props) {
   const [currentColor, setCurrentColor] = useState("#000");
   const dispatch = useDispatch();
   const onColorChange = (color: string) => {
@@ -24,16 +30,23 @@ export default function ColorPanel() {
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.COLOR_PANEL,
-      item: {},
+      item: {
+        top,
+        left,
+      },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    []
+    [top, left]
   );
   if (isDragging) return <div ref={drag} />;
   return (
-    <div className="window colors-panel" ref={drag}>
+    <div
+      className="window colors-panel"
+      ref={drag}
+      style={{ top: top + "px", left: left + "px" }}
+    >
       <div className="title-bar">
         <div className="title-bar-text">Colors</div>
       </div>
@@ -47,7 +60,8 @@ export default function ColorPanel() {
             className={classNames("color", {
               active: color === currentColor,
             })}
-            style={{ backgroundColor: color }}></div>
+            style={{ backgroundColor: color }}
+          ></div>
         ))}
       </div>
     </div>
