@@ -6,6 +6,8 @@ import { drawStroke, setCanvasSize } from "./utils/cavasUtils";
 import classNames from "classnames";
 import styles from "./app.module.css";
 import ColorPanel from "./components/colorPanel";
+import { useDrop } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
 
 const WIDTH = 960;
 const HEIGHT = 540;
@@ -52,8 +54,16 @@ function App() {
     if (!canvas || !context) return;
     setCanvasSize(canvas, WIDTH, HEIGHT);
   }, []);
+
+  const [collectedProps, drop] = useDrop(() => ({
+    accept: ItemTypes.COLOR_PANEL,
+    drop(item, monitor){
+      console.log(monitor.getClientOffset())
+    }
+  }));
+
   return (
-    <div className={classNames("window", styles.container)}>
+    <div className={classNames("window", styles.container)} ref={drop}>
       <div className="title-bar">
         <div className="title-bar-text">redux - piant</div>
         <div className="title-bar-controls">
