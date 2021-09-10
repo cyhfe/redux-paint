@@ -1,6 +1,11 @@
+import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./rootReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createStore, applyMiddleware } from "redux";
-import { logger } from "redux-logger"
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
+import { logger } from "redux-logger";
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logger),
+  devTools: process.env.NODE_ENV !== "production",
+});

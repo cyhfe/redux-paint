@@ -20,15 +20,15 @@ type DragItem = {
 
 const WindowBody = () => {
   const [colorOffset, setColorOffset] = useState<Offset>({
-    x: 40,
-    y: 40,
+    x: 30,
+    y: 200,
   });
   const [editOffset, setEditOffset] = useState<Offset>({
-    x: 40,
-    y: 80,
+    x: 30,
+    y: 30,
   });
   const [fileOffset, setFileOffset] = useState<Offset>({
-    x: 40,
+    x: 30,
     y: 120,
   });
   const [, drop] = useDrop(() => ({
