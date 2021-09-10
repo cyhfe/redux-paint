@@ -5,6 +5,7 @@ export const UPDATE_STROKE = "UPDATE_STROKE";
 export const SET_STROKE_COLOR = "SET_STROKE_COLOR";
 export const UNDO = "UNDO";
 export const REDO = "REDO";
+export const RESET ='RESET'
 
 export type Action =
   | {
@@ -27,7 +28,10 @@ export type Action =
     }
   | {
       type: typeof UNDO;
-    };
+    }
+  | {
+    type: typeof RESET
+  }
 
 export const beginStroke = (x: number, y: number) => {
   return {
@@ -73,3 +77,9 @@ export const redo = () => {
     type: REDO,
   };
 };
+
+export const reset = () => {
+  return {
+    type: RESET
+  }
+}

@@ -7,6 +7,7 @@ import {
   REDO,
   UNDO,
   UPDATE_STROKE,
+  RESET,
 } from "./actions";
 
 const initialState: RootState = {
@@ -77,6 +78,11 @@ export const rootReducer = (
         ...state,
         historyIndex: Math.max(state.historyIndex - 1, 0),
       };
+    case RESET: {
+      return {
+        ...initialState
+      }
+    }
     default:
       return state;
   }

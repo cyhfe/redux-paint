@@ -13,7 +13,6 @@ import {
   drawStroke,
   setCanvasSize,
 } from "../../utils/cavasUtils";
-import { Stroke } from "../../types";
 
 const WIDTH = 960;
 const HEIGHT = 540;
@@ -88,10 +87,9 @@ const Canvas = () => {
         .slice(0, strokes.length - historyIndex)
         .forEach((stroke) => {
           drawStroke(context, stroke.points, stroke.color);
-          console.log("draw", stroke.points);
         });
     });
-  }, [historyIndex]);
+  }, [strokes, historyIndex]);
 
   return (
     <canvas

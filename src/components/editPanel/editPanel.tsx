@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
 import { useDispatch } from "react-redux";
-import { redo, undo } from "../../actions";
+import { redo, undo, reset } from "../../actions";
 
 type Props = {
   top: number;
@@ -47,6 +47,11 @@ const EditPanel = ({ top, left }: Props) => {
             className="button undo"
             onClick={() => dispatch(redo())}>
             Redo
+          </button>
+          <button
+            className="button clear"
+            onClick={() => dispatch(reset())}>
+            Clear
           </button>
         </div>
       </div>
