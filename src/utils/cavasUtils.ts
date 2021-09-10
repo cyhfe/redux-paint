@@ -24,3 +24,11 @@ export const setCanvasSize = (
   canvas.width = width;
   canvas.height = height;
 };
+
+export const clearCanvas = (
+  canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D
+) => {
+  context.fillStyle = "#fff";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+};

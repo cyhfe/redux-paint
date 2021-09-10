@@ -31,6 +31,7 @@ export default function ColorPanel({ left, top }: Props) {
     () => ({
       type: ItemTypes.COLOR_PANEL,
       item: {
+        type: ItemTypes.COLOR_PANEL,
         top,
         left,
       },

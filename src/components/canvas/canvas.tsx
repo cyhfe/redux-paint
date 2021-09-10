@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { currentStrokeSelector } from "../../selectors";
 import { beginStroke, endStroke, updateStroke } from "../../actions";
-import { drawStroke, setCanvasSize } from "../../utils/cavasUtils";
+import { clearCanvas, drawStroke, setCanvasSize } from "../../utils/cavasUtils";
 
 const WIDTH = 960;
 const HEIGHT = 540;
@@ -46,6 +46,10 @@ const Canvas = () => {
     const { canvas, context } = getCanvasWithContext();
     if (!canvas || !context) return;
     setCanvasSize(canvas, WIDTH, HEIGHT);
+    context.lineJoin = "round";
+    context.lineCap = "round";
+    context.lineWidth = 5;
+    clearCanvas(canvas, context);
   }, []);
 
   return (
