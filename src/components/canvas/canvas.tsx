@@ -1,6 +1,6 @@
 import styles from "./canvas.module.css";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   currentStrokeSelector,
@@ -48,12 +48,15 @@ const Canvas = () => {
     dispatch(endStroke());
   };
 
-  const getCanvasWithContext = (canvas = canvasRef.current) => {
-    return {
-      canvas,
-      context: canvas?.getContext("2d"),
-    };
-  };
+  const getCanvasWithContext = useCallback(
+    (canvas = canvasRef.current) => {
+      return {
+        canvas,
+        context: canvas?.getContext("2d"),
+      };
+    },
+    [canvasRef]
+  );
 
   // 初始化canvas
   useEffect(() => {
@@ -64,7 +67,7 @@ const Canvas = () => {
     context.lineCap = "round";
     context.lineWidth = 5;
     clearCanvas(canvas, context);
-  }, []);
+  }, [getCanvasWithContext]);
 
   // 绘制当前笔画
   useEffect(() => {
@@ -73,7 +76,7 @@ const Canvas = () => {
     requestAnimationFrame(() => {
       drawStroke(context, currentStroke.points, currentStroke.color);
     });
-  }, [currentStroke]);
+  }, [currentStroke, getCanvasWithContext]);
 
   // 历史记录变化后清空画布重新绘制
   useEffect(() => {
@@ -89,7 +92,7 @@ const Canvas = () => {
           drawStroke(context, stroke.points, stroke.color);
         });
     });
-  }, [strokes, historyIndex]);
+  }, [strokes, historyIndex, getCanvasWithContext]);
 
   return (
     <canvas

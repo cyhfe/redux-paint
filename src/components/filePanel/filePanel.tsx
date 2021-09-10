@@ -1,16 +1,16 @@
 import "./filePanel.css";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
-import { useDispatch } from "react-redux";
-import { saveAs } from 'file-saver';
-
+import { saveAs } from "file-saver";
+import { getCanvasImage } from "../../utils/cavasUtils";
+import { useCanvas } from "../../canvasContext";
 type Props = {
   top: number;
   left: number;
 };
 
 const FilePanel = ({ top, left }: Props) => {
-  const dispatch = useDispatch();
+  const canvasRef = useCanvas();
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.FILE_PANEL,
@@ -25,6 +25,13 @@ const FilePanel = ({ top, left }: Props) => {
     }),
     [top, left]
   );
+
+  const exportToFile = async () => {
+    const blob = await getCanvasImage(canvasRef.current);
+    if (!blob) return;
+    saveAs(blob, "drawing.png");
+  };
+
   if (isDragging) return <div ref={drag} />;
   return (
     <div
@@ -36,9 +43,7 @@ const FilePanel = ({ top, left }: Props) => {
       </div>
       <div className="window-body">
         <div className="field-row">
-          <button
-            className="button clear"
-            onClick={() => {}}>
+          <button className="button clear" onClick={exportToFile}>
             Export
           </button>
         </div>
