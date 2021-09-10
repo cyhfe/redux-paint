@@ -1,21 +1,21 @@
-import "./editPanel.css";
+import "./filePanel.css";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
 import { useDispatch } from "react-redux";
-import { redo, undo, reset } from "../../actions";
+import { saveAs } from 'file-saver';
 
 type Props = {
   top: number;
   left: number;
 };
 
-const EditPanel = ({ top, left }: Props) => {
+const FilePanel = ({ top, left }: Props) => {
   const dispatch = useDispatch();
   const [{ isDragging }, drag] = useDrag(
     () => ({
-      type: ItemTypes.EDIT_PANEL,
+      type: ItemTypes.FILE_PANEL,
       item: {
-        type: ItemTypes.EDIT_PANEL,
+        type: ItemTypes.FILE_PANEL,
         top,
         left,
       },
@@ -28,28 +28,18 @@ const EditPanel = ({ top, left }: Props) => {
   if (isDragging) return <div ref={drag} />;
   return (
     <div
-      className="window edit-panel"
+      className="window file-panel"
       ref={drag}
       style={{ top: top + "px", left: left + "px" }}>
       <div className="title-bar">
-        <div className="title-bar-text">Edit</div>
+        <div className="title-bar-text">File</div>
       </div>
       <div className="window-body">
         <div className="field-row">
           <button
-            className="button redo"
-            onClick={() => dispatch(undo())}>
-            Undo
-          </button>
-          <button
-            className="button undo"
-            onClick={() => dispatch(redo())}>
-            Redo
-          </button>
-          <button
             className="button clear"
-            onClick={() => dispatch(reset())}>
-            Clear
+            onClick={() => {}}>
+            Export
           </button>
         </div>
       </div>
@@ -57,4 +47,4 @@ const EditPanel = ({ top, left }: Props) => {
   );
 };
 
-export default EditPanel;
+export default FilePanel;

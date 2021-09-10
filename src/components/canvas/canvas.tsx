@@ -1,6 +1,6 @@
 import styles from "./canvas.module.css";
 
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   currentStrokeSelector,
@@ -13,13 +13,13 @@ import {
   drawStroke,
   setCanvasSize,
 } from "../../utils/cavasUtils";
+import { useCanvas } from "../../canvasContext";
 
 const WIDTH = 960;
 const HEIGHT = 540;
 
 const Canvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  const canvasRef = useCanvas();
   const currentStroke = useSelector(currentStrokeSelector);
   const historyIndex = useSelector(historyIndexSelector);
   const strokes = useSelector(strokesSelector);
@@ -75,7 +75,7 @@ const Canvas = () => {
     });
   }, [currentStroke]);
 
-  // 历史记录变化后重新绘制
+  // 历史记录变化后清空画布重新绘制
   useEffect(() => {
     const { canvas, context } = getCanvasWithContext();
     if (!context || !canvas) {

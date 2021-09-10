@@ -32,3 +32,14 @@ export const clearCanvas = (
   context.fillStyle = "#fff";
   context.fillRect(0, 0, canvas.width, canvas.height);
 };
+
+export const getCanvasImage = async (
+  canvas: HTMLCanvasElement | null
+): Promise<null | Blob> => {
+  return new Promise((resolve, reject) => {
+    if (!canvas) {
+      return reject(null);
+    }
+    canvas.toBlob(resolve);
+  });
+};
