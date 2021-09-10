@@ -11,7 +11,7 @@ export type Stroke = {
 export type RootState = {
   currentStroke: Stroke;
   strokes: Stroke[];
-  historyIndex: 0;
+  historyIndex: number;
 };
 
 export type Project = {

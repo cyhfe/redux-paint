@@ -1,10 +1,10 @@
 import "./editPanel.css";
 import { useState } from "react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { setColor } from "../../actions";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
+import { useDispatch } from "react-redux";
+import { redo, undo } from "../../actions";
 
 type Props = {
   top: number;
@@ -12,6 +12,7 @@ type Props = {
 };
 
 const EditPanel = ({ top, left }: Props) => {
+  const dispatch = useDispatch();
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.EDIT_PANEL,
@@ -31,15 +32,22 @@ const EditPanel = ({ top, left }: Props) => {
     <div
       className="window edit-panel"
       ref={drag}
-      style={{ top: top + "px", left: left + "px" }}
-    >
+      style={{ top: top + "px", left: left + "px" }}>
       <div className="title-bar">
         <div className="title-bar-text">Edit</div>
       </div>
       <div className="window-body">
         <div className="field-row">
-          <button className="button redo">Undo</button>
-          <button className="button undo">Redo</button>
+          <button
+            className="button redo"
+            onClick={() => dispatch(undo())}>
+            Undo
+          </button>
+          <button
+            className="button undo"
+            onClick={() => dispatch(redo())}>
+            Redo
+          </button>
         </div>
       </div>
     </div>
