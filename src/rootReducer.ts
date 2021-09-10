@@ -8,7 +8,7 @@ import {
   UNDO,
   UPDATE_STROKE,
   RESET,
-} from "./actions";
+} from "./modules/actions";
 
 const initialState: RootState = {
   currentStroke: {

@@ -1,11 +1,11 @@
-import { Point } from "./types";
+import { Point ,Stroke} from "../types";
 export const BEGIN_STROKE = "BEGIN_STROKE";
 export const END_STROKE = "END_STROKE";
 export const UPDATE_STROKE = "UPDATE_STROKE";
 export const SET_STROKE_COLOR = "SET_STROKE_COLOR";
 export const UNDO = "UNDO";
 export const REDO = "REDO";
-export const RESET ='RESET'
+export const RESET = "RESET";
 
 export type Action =
   | {
@@ -30,8 +30,8 @@ export type Action =
       type: typeof UNDO;
     }
   | {
-    type: typeof RESET
-  }
+      type: typeof RESET;
+    };
 
 export const beginStroke = (x: number, y: number) => {
   return {
@@ -43,9 +43,13 @@ export const beginStroke = (x: number, y: number) => {
   };
 };
 
-export const endStroke = () => {
+export const endStroke = (stroke: Stroke, historyIndex: number) => {
   return {
     type: END_STROKE,
+    payload: {
+      stroke,
+      historyIndex
+    }
   };
 };
 
@@ -66,9 +70,10 @@ export const setColor = (color: string) => {
   };
 };
 
-export const undo = () => {
+export const undo = (strokesLength: number) => {
   return {
     type: UNDO,
+    payload: strokesLength,
   };
 };
 
@@ -80,6 +85,6 @@ export const redo = () => {
 
 export const reset = () => {
   return {
-    type: RESET
-  }
-}
+    type: RESET,
+  };
+};

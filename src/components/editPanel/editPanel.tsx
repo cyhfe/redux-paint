@@ -1,15 +1,16 @@
 import "./editPanel.css";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
-import { useDispatch } from "react-redux";
-import { redo, undo, reset } from "../../actions";
-
+import { useDispatch, useSelector } from "react-redux";
+import { redo, undo, reset } from "../../modules/actions";
+import {strokesSelector} from '../../modules/selectors'
 type Props = {
   top: number;
   left: number;
 };
 
 const EditPanel = ({ top, left }: Props) => {
+  const strokes = useSelector(strokesSelector)
   const dispatch = useDispatch();
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -38,7 +39,7 @@ const EditPanel = ({ top, left }: Props) => {
         <div className="field-row">
           <button
             className="button redo"
-            onClick={() => dispatch(undo())}>
+            onClick={() => dispatch(undo(strokes.length))}>
             Undo
           </button>
           <button

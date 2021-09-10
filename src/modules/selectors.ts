@@ -1,4 +1,4 @@
-import { RootState } from "./types";
+import { RootState } from "../types";
 export const currentStrokeSelector = (state: RootState) =>
   state.currentStroke;
 export const historyIndexSelector = (state: RootState) =>

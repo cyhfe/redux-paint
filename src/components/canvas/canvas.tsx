@@ -6,8 +6,8 @@ import {
   currentStrokeSelector,
   historyIndexSelector,
   strokesSelector,
-} from "../../selectors";
-import { beginStroke, endStroke, updateStroke } from "../../actions";
+} from "../../modules/selectors";
+import { beginStroke, endStroke, updateStroke } from "../../modules/actions";
 import {
   clearCanvas,
   drawStroke,
@@ -45,7 +45,9 @@ const Canvas = () => {
 
   const endDrawing = () => {
     if (!isDrawing) return;
-    dispatch(endStroke());
+    console.log(currentStroke, historyIndex)
+    // debugger
+    dispatch(endStroke(currentStroke, historyIndex));
   };
 
   const getCanvasWithContext = useCallback(

@@ -2,7 +2,7 @@ import "./colorPanel.css";
 import { useState } from "react";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
-import { setColor } from "../../actions";
+import { setColor } from "../../modules/actions";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
 
