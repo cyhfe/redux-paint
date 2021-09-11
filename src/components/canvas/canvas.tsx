@@ -45,8 +45,6 @@ const Canvas = () => {
 
   const endDrawing = () => {
     if (!isDrawing) return;
-    console.log(currentStroke, historyIndex)
-    // debugger
     dispatch(endStroke(currentStroke, historyIndex));
   };
 

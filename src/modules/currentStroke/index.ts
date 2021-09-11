@@ -1,4 +1,5 @@
 import { RootState, Point, Stroke } from "../../types";
+import { RESET } from "../actions";
 
 export const BEGIN_STROKE = "BEGIN_STROKE";
 export const UPDATE_STROKE = "UPDATE_STROKE";
@@ -24,6 +25,9 @@ type CurrentStrokeAction =
   | {
       type: typeof SET_STROKE_COLOR;
       payload: string;
+    }
+  | {
+      type: typeof RESET;
     };
 
 const initialState: RootState["currentStroke"] = {
@@ -47,7 +51,6 @@ export const reducer = (
         points: [...state.points, action.payload],
       };
     case END_STROKE: {
-      if (!state.points.length) return state;
       return {
         ...state,
         points: [],
@@ -59,10 +62,11 @@ export const reducer = (
         color: action.payload,
       };
     }
+    case RESET: {
+      return { ...initialState };
+    }
     default: {
       return state;
     }
   }
 };
-
-

@@ -3,7 +3,7 @@ import { RootState, Stroke } from "../../types";
 export const UNDO = "UNDO";
 export const REDO = "REDO";
 export const END_STROKE = "END_STROKE";
-export const RESET = "RESER";
+export const RESET = "RESET";
 
 type HistoryIndexAction =
   | {
@@ -38,7 +38,6 @@ export const reducer = (
       return Math.max(state - 1, 0);
     }
     case END_STROKE: {
-      // if()
       return 0;
     }
     case RESET: {
@@ -50,15 +49,3 @@ export const reducer = (
   }
 };
 
-export const undo = (strokesLength: number) => {
-  return {
-    type: UNDO,
-    payload: strokesLength,
-  };
-};
-
-export const redo = () => {
-  return {
-    type: REDO,
-  };
-};
