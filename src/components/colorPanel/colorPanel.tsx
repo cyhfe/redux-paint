@@ -1,10 +1,10 @@
 import "./colorPanel.css";
-import { useState } from "react";
 import classNames from "classnames";
-import { useDispatch } from "react-redux";
-import { setColor } from "../../modules/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { setColor } from "../../modules/currentStroke/slice";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
+import {currentStrokeSelector} from '../../modules/selectors'
 
 const COLORS = [
   "#000",
@@ -21,10 +21,9 @@ type Props = {
   top: number;
 };
 export default function ColorPanel({ left, top }: Props) {
-  const [currentColor, setCurrentColor] = useState("#000");
+  const currentStroke = useSelector(currentStrokeSelector)
   const dispatch = useDispatch();
   const onColorChange = (color: string) => {
-    setCurrentColor(color);
     dispatch(setColor(color));
   };
   const [{ isDragging }, drag] = useDrag(
@@ -59,7 +58,7 @@ export default function ColorPanel({ left, top }: Props) {
               onColorChange(color);
             }}
             className={classNames("color", {
-              active: color === currentColor,
+              active: color === currentStroke.color,
             })}
             style={{ backgroundColor: color }}
           ></div>

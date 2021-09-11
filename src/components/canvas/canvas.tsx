@@ -7,12 +7,9 @@ import {
   historyIndexSelector,
   strokesSelector,
 } from "../../modules/selectors";
-import { beginStroke, endStroke, updateStroke } from "../../modules/actions";
-import {
-  clearCanvas,
-  drawStroke,
-  setCanvasSize,
-} from "../../utils/cavasUtils";
+import { startStroke, updateStroke } from "../../modules/currentStroke/slice";
+import { endStroke } from "../../modules/sharedActions";
+import { clearCanvas, drawStroke, setCanvasSize } from "../../utils/cavasUtils";
 import { useCanvas } from "../../canvasContext";
 
 const WIDTH = 960;
@@ -32,20 +29,18 @@ const Canvas = () => {
     nativeEvent,
   }: React.MouseEvent<HTMLCanvasElement>) => {
     const { offsetX, offsetY } = nativeEvent;
-    dispatch(beginStroke(offsetX, offsetY));
+    dispatch(startStroke({ x: offsetX, y: offsetY }));
   };
 
-  const draw = ({
-    nativeEvent,
-  }: React.MouseEvent<HTMLCanvasElement>) => {
+  const draw = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
     const { offsetX, offsetY } = nativeEvent;
-    dispatch(updateStroke(offsetX, offsetY));
+    dispatch(updateStroke({ x: offsetX, y: offsetY }));
   };
 
   const endDrawing = () => {
     if (!isDrawing) return;
-    dispatch(endStroke(currentStroke, historyIndex));
+    dispatch(endStroke({currentStroke, historyIndex}));
   };
 
   const getCanvasWithContext = useCallback(
@@ -86,11 +81,9 @@ const Canvas = () => {
     }
     requestAnimationFrame(() => {
       clearCanvas(canvas, context);
-      strokes
-        .slice(0, strokes.length - historyIndex)
-        .forEach((stroke) => {
-          drawStroke(context, stroke.points, stroke.color);
-        });
+      strokes.slice(0, strokes.length - historyIndex).forEach((stroke) => {
+        drawStroke(context, stroke.points, stroke.color);
+      });
     });
   }, [strokes, historyIndex, getCanvasWithContext]);
 
