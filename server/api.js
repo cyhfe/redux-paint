@@ -36,6 +36,7 @@ router.get("/projects/:id", (req, res) => {
 
 router.post("/projects", (req, res) => {
   const { name, strokes, image } = req.body;
+  console.log(req.body)
   const valid = name && strokes && image;
   if (!valid) {
     res.json({ success: false });
