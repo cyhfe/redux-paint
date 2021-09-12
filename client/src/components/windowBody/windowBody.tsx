@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDrop, XYCoord } from "react-dnd";
 import { ItemTypes } from "../../ItemTypes";
 import Canvas from "../canvas/canvas";
+import ModalManage from '../modalManage'
 type Offset = {
   x: number;
   y: number;
@@ -57,6 +58,7 @@ const WindowBody = () => {
       <EditPanel top={editOffset.y} left={editOffset.x} />
       <FilePanel top={fileOffset.y} left={fileOffset.x} />
       <Canvas />
+      <ModalManage />
     </div>
   );
 };

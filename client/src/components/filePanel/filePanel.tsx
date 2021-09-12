@@ -4,6 +4,8 @@ import { ItemTypes } from "../../ItemTypes";
 import { saveAs } from "file-saver";
 import { getCanvasImage } from "../../utils/cavasUtils";
 import { useCanvas } from "../../canvasContext";
+import { show } from "../../modules/modal/slice";
+import { useDispatch } from "react-redux";
 type Props = {
   top: number;
   left: number;
@@ -11,6 +13,7 @@ type Props = {
 
 const FilePanel = ({ top, left }: Props) => {
   const canvasRef = useCanvas();
+  const dispatch = useDispatch();
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.FILE_PANEL,
@@ -37,7 +40,8 @@ const FilePanel = ({ top, left }: Props) => {
     <div
       className="window file-panel"
       ref={drag}
-      style={{ top: top + "px", left: left + "px" }}>
+      style={{ top: top + "px", left: left + "px" }}
+    >
       <div className="title-bar">
         <div className="title-bar-text">File</div>
       </div>
@@ -45,6 +49,20 @@ const FilePanel = ({ top, left }: Props) => {
         <div className="field-row">
           <button className="button clear" onClick={exportToFile}>
             Export
+          </button>
+          <button
+            className="button"
+            onClick={() => {
+              dispatch(show("PROJECT_MODAL"));
+            }}
+          >
+            Load
+          </button>
+          <button
+            className="button"
+            onClick={() => dispatch(show("PROJECT_SAVE_MODAL"))}
+          >
+            Save
           </button>
         </div>
       </div>
