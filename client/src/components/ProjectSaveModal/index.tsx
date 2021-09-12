@@ -8,7 +8,6 @@ import { useCanvas } from "../../canvasContext";
 import { createProject } from "../../api";
 import { useState } from "react";
 import { strokesSelector } from "../../modules/selectors";
-import { reset } from "../../modules/sharedActions";
 const ProjectSaveModal = () => {
   const [projectName, setProjectName] = useState("");
   const strokes = useSelector(strokesSelector);
@@ -31,7 +30,7 @@ const ProjectSaveModal = () => {
     if (!projectName) return;
     const file = await getCanvasImage(canvasRef.current);
     if (!file) return;
-    const image = await getBase64Thumbnail({ file: file, scale: 0.1 });
+    const image = await getBase64Thumbnail({ file: file, scale: 0.2 });
     try {
       const res = await createProject(projectName, strokes, image);
       if (res.success) {

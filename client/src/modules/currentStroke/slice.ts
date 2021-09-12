@@ -22,7 +22,7 @@ export const currentStroke = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(endStroke, (state, action) => {
+    builder.addCase(endStroke, (state) => {
       state.points = []
     })
     builder.addCase(reset, () => {

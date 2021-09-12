@@ -7,3 +7,5 @@ export const endStroke = createAction<{
 }>("endStroke");
 
 export const reset = createAction("reset");
+
+export const setStrokes = createAction<Stroke[]>('setStrokes')

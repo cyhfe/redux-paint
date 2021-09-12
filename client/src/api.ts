@@ -22,3 +22,8 @@ export const getProject = (projectId: string) =>
   fetch(`/api/projects/${projectId}`).then((res) =>
     res.json()
   );
+
+  export const getProjects = () =>
+  fetch(`/api/projects/`).then((res) =>
+    res.json()
+  );

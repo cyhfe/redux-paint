@@ -6,6 +6,7 @@ import { getCanvasImage } from "../../utils/cavasUtils";
 import { useCanvas } from "../../canvasContext";
 import { show } from "../../modules/modal/slice";
 import { useDispatch } from "react-redux";
+import { getProjectsThunk } from "../../modules/projects/slice";
 type Props = {
   top: number;
   left: number;
@@ -35,6 +36,11 @@ const FilePanel = ({ top, left }: Props) => {
     saveAs(blob, "drawing.png");
   };
 
+  const handleLoadClick = () => {
+    dispatch(show("PROJECT_MODAL"));
+    dispatch(getProjectsThunk());
+  };
+
   if (isDragging) return <div ref={drag} />;
   return (
     <div
@@ -50,12 +56,7 @@ const FilePanel = ({ top, left }: Props) => {
           <button className="button clear" onClick={exportToFile}>
             Export
           </button>
-          <button
-            className="button"
-            onClick={() => {
-              dispatch(show("PROJECT_MODAL"));
-            }}
-          >
+          <button className="button" onClick={handleLoadClick}>
             Load
           </button>
           <button

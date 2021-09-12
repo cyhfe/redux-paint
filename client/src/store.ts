@@ -4,6 +4,7 @@ import historyIndex from "./modules/historyIndex/slice";
 import currentStroke from "./modules/currentStroke/slice";
 import strokes from "./modules/strokes/slice";
 import modalVisible from "./modules/modal/slice";
+import projects from "./modules/projects/slice";
 
 import { configureStore } from "@reduxjs/toolkit";
 
@@ -12,6 +13,7 @@ const reducer = {
   historyIndex,
   strokes,
   modalVisible,
+  projects
 };
 
 export const store = configureStore({

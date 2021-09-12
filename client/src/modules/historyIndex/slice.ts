@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { endStroke, reset } from "../sharedActions";
+import { endStroke, reset, setStrokes } from "../sharedActions";
 
 const initialState = 0;
 
@@ -21,6 +21,9 @@ export const historyIndex = createSlice({
     builder.addCase(reset, () => {
       return initialState;
     });
+    builder.addCase(setStrokes, () => {
+      return initialState
+    })
   },
 });
 
