@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { hide } from "../../modules/modal/slice";
 import { useEffect } from "react";
 import { getBase64Thumbnail } from "../../utils/thumbnail";
+import useInputFocus from "../../utils/useInputFocus";
 import { getCanvasImage } from "../../utils/cavasUtils";
 import { useCanvas } from "../../canvasContext";
 import { createProject } from "../../api";
 import { useState } from "react";
 import { strokesSelector } from "../../modules/selectors";
 const ProjectSaveModal = () => {
+  const inputRef = useInputFocus()
   const [projectName, setProjectName] = useState("");
   const strokes = useSelector(strokesSelector);
   const dispatch = useDispatch();
@@ -55,6 +57,7 @@ const ProjectSaveModal = () => {
                 type="text"
                 onChange={(e) => setProjectName(e.target.value)}
                 value={projectName}
+                ref={inputRef}
               />
             </div>
             <div className="field-row">
