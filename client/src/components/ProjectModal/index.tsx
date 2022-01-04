@@ -31,7 +31,7 @@ const ProjectModal = () => {
       <div className="modal-content" ref={modalRef}>
         <div className="window">
           <div className="title-bar">
-            <div className="title-bar-text">Counter</div>
+            <div className="title-bar-text">Load</div>
             <div className="title-bar-controls">
               <button aria-label="Close" onClick={() => dispatch(hide())} />
             </div>
